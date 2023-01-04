@@ -112,7 +112,7 @@ exports.protect = catchAsync(async (req, res, next) => {
   // 2) Verification
   const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
 
-  console.log(decoded);
+  // console.log(decoded);
 
   // 3) Check if user still exists
   const currentUser = await User.findById(decoded.id);
@@ -215,7 +215,7 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
       message: 'Token sent to email',
     });
   } catch (err) {
-    console.log(err, 'err');
+    // console.log(err, 'err');
     user.passwordResetToken = undefined;
     user.passwordResetExpires = undefined;
 
