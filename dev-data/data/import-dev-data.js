@@ -59,6 +59,21 @@ const myFunction = async () => {
   }
 };
 
+const updateTimestamp = async () => {
+  try {
+    await User.updateMany(
+      {},
+      {
+        $set: { active: true, createdAt: new Date(), updatedAt: new Date() },
+      },
+      { validateBeforeSave: true }
+    );
+    console.log('Data successfully updated');
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const deleteData = async () => {
   try {
     await Tour.deleteMany({});
@@ -80,7 +95,7 @@ if (process.argv[2] === '--delete') {
 }
 
 if (process.argv[2] === '--myFunction') {
-  myFunction();
+  updateTimestamp();
 }
 
 console.log(process.argv);

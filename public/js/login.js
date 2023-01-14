@@ -2,25 +2,40 @@
 import axios from 'axios';
 import { showAlert } from './alerts';
 
-export const login = async (email, password) => {
+export const login = async (data) => {
   try {
     const res = await axios({
       method: 'POST',
       url: '/api/v1/users/login',
-      data: {
-        email,
-        password,
-      },
+      data,
     });
 
     if (res.data.status === 'success') {
       showAlert('success', 'Logged in successfully!');
       window.setTimeout(() => {
         location.assign('/');
-      }, 1500);
+      }, 500);
     }
   } catch (error) {
-    // alert(error.response.data.message);
+    showAlert('error', error.response.data.message);
+  }
+};
+
+export const signup = async (data) => {
+  try {
+    const res = await axios({
+      method: 'POST',
+      url: '/api/v1/users/signup',
+      data,
+    });
+
+    if (res.data.status === 'success') {
+      showAlert('success', 'Signed up successfully!');
+      window.setTimeout(() => {
+        location.assign('/');
+      }, 500);
+    }
+  } catch (error) {
     showAlert('error', error.response.data.message);
   }
 };

@@ -1,5 +1,5 @@
 import '@babel/polyfill';
-import { login, logout } from './login';
+import { login, logout, signup } from './login';
 import { displayMap } from './mapbox';
 import { bookTour } from './stripe';
 import { updateSettings } from './updateSettings';
@@ -7,9 +7,10 @@ import { updateSettings } from './updateSettings';
 // DOM ELEMENTS
 const mapBox = document.getElementById('map');
 const loginForm = document.querySelector('.form--login');
+const signupForm = document.querySelector('.form--signup');
 const updateUserForm = document.querySelector('.form-user-data');
 const userPasswordForm = document.querySelector('.form-user-password');
-const logOutBtn = document.querySelector('.nav__el--logout');
+const logOutBtn = document.querySelectorAll('.nav__el--logout');
 const bookBtn = document.getElementById('book-tour');
 
 // DELEGATION
@@ -19,17 +20,47 @@ if (mapBox) {
 }
 
 if (loginForm) {
-  loginForm.addEventListener('submit', (e) => {
+  loginForm.addEventListener('submit', async (e) => {
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
+    const actionBtn = document.querySelector("button[type='submit']");
 
     e.preventDefault();
-    login(email, password);
+
+    const data = { email, password };
+
+    actionBtn.disabled = true;
+
+    e.preventDefault();
+
+    await login(data);
+
+    actionBtn.disabled = false;
+  });
+}
+
+if (signupForm) {
+  signupForm.addEventListener('submit', async (e) => {
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    const passwordConfirm = document.getElementById('passwordConfirm').value;
+    const actionBtn = document.querySelector("button[type='submit']");
+
+    actionBtn.disabled = true;
+    actionBtn.innerText = 'Creating Your Account...';
+    e.preventDefault();
+    const data = { name, email, password, passwordConfirm };
+
+    await signup(data);
+    actionBtn.disabled = false;
+    actionBtn.innerText = 'Signup';
   });
 }
 
 if (logOutBtn) {
-  logOutBtn.addEventListener('click', logout);
+  logOutBtn.forEach((btn) => btn.addEventListener('click', logout));
+  // console.log(logOutBtn);
 }
 
 if (updateUserForm) {
@@ -72,5 +103,19 @@ if (bookBtn) {
     e.target.textContent = 'Processing...';
     const { tourId } = e.target.dataset;
     bookTour(tourId);
+  });
+}
+
+// Navigation
+const navBtn = document.querySelector('#navBtn');
+const navList = document.querySelector('.nav-links');
+
+if (navBtn) {
+  navBtn.addEventListener('click', (e) => {
+    if (navList.style.display === 'block') {
+      navList.style.display = 'none';
+    } else {
+      navList.style.display = 'block';
+    }
   });
 }

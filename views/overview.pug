@@ -1,9 +1,8 @@
 extends base
 
 block content 
-    main.main
+    main.main 
         .card-container
-
             each tour in tours
                 .card
                     .card__header
@@ -43,3 +42,14 @@ block content
                             | 
                             span.card__footer-text=`rating (${tour.ratingsQuantity})`
                         a.btn.btn--green.btn--small(href=`/tour/${tour.slug}`) Details
+
+
+
+        div.container.user-list
+            h2 Recently Logged in Users
+
+            div
+                each user in users 
+                    div.img-container
+                        img.overview-box__img(src=`/img/users/${user.photo}`, alt=`${'default.jpg'}`)
+                        h2=user.name.split(' ')[0]

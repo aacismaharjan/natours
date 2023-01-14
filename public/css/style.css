@@ -325,13 +325,77 @@ body {
 .header__logo img {
   height: 3.5rem;
 }
-@media only screen and (max-width: 62.5em) {
+/* @media only screen and (max-width: 62.5em) {
   .header__logo {
     -webkit-box-ordinal-group: 0;
     -ms-flex-order: -1;
     order: -1;
     margin-bottom: 1.5rem;
   }
+} */
+
+@media (max-width: 1024px) {
+  body {
+    padding: 0;
+  }
+
+  .header {
+    display: none;
+  }
+
+  .mobile-header {
+    display: block !important;
+  }
+}
+
+.mobile-header {
+  display: none;
+  color: white;
+  height: auto;
+  padding-right: 0;
+  padding-left: 0;
+  overflow:hidden;
+  position: relative;
+
+}
+
+.mobile-header .header__logo {
+  padding: 1.76rem 0 1.25rem 1rem;
+  margin-bottom: 0px;
+}
+
+.mobile-header .nav-links {
+  background: gray;
+  display:none;
+}
+
+.mobile-header .nav-links a, .mobile-header .nav-icon a {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  padding: 14px 16px;
+  display: block;
+}
+
+
+.mobile-header .nav-links a:hover,
+.mobile-header .nav-icon a:hover {
+  color: black;
+  background-color: #ddd;
+}
+
+.mobile-header .nav-icon  a{
+  position: absolute;
+  font-size: 18px !important;
+  top: 1rem;
+  right: 1rem;
+  padding: 10px 16px;
+}
+
+.mobile-header .nav-icon a{
+  display: block;
+  font-size: 14px;
+  background: black;
 }
 
 .section-header {
@@ -1188,6 +1252,35 @@ body {
   justify-self: end;
   -ms-flex-item-align: center;
   align-self: center;
+}
+
+.container {
+  max-width: 120rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+div.user-list > h2{
+  font-size: 20px;
+  margin-top: 24px; 
+  margin-bottom: 16px;
+}
+
+div.user-list > div{
+  display: flex;
+  flex-wrap: wrap; 
+  gap: 20px 40px;
+}
+
+.user-list .img-container {
+  text-align: center; 
+  width: auto;
+}
+
+.user-list .img-container img {
+  width: 80px; 
+  height: 80px;
+  margin-right: 0;
 }
 
 .error {

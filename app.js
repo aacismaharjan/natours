@@ -51,7 +51,7 @@ const scriptSrcUrls = [
 const styleSrcUrls = [
   'https://unpkg.com',
   'https://tile.openstreetmap.org',
-  'https://fonts.googleapis.com/',
+  'https://fonts.googleapis.com',
   'https://cdnjs.cloudflare.com',
   'http://127.0.0.1:*',
 ];
@@ -63,7 +63,11 @@ const connectSrcUrls = [
   'http://127.0.0.1:*',
   'ws://127.0.0.1:*',
 ];
-const fontSrcUrls = ['fonts.googleapis.com', 'fonts.gstatic.com'];
+const fontSrcUrls = [
+  'fonts.googleapis.com',
+  'fonts.gstatic.com',
+  'cdnjs.cloudflare.com',
+];
 
 app.use(
   helmet.contentSecurityPolicy({

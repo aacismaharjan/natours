@@ -6,7 +6,9 @@ const AppError = require('../utils/appError');
 
 exports.getOverview = catchAsync(async (req, res) => {
   // 1) Get tour data from collection
-  const tours = await Tour.find();
+  const tours = await Tour.find().sort({ ratingsAverage: -1 });
+  const users = await User.find().sort({ createdAt: -1 }).limit(10);
+  console.log(users);
 
   // 2) Build template
 
@@ -14,6 +16,7 @@ exports.getOverview = catchAsync(async (req, res) => {
   res.status(200).render('overview', {
     title: 'All Tours',
     tours,
+    users,
   });
 });
 
@@ -35,14 +38,16 @@ exports.getTour = catchAsync(async (req, res, next) => {
 });
 
 exports.getLoginForm = catchAsync(async (req, res) => {
-  res
-    .status(200)
-    .set('Content-Security-Policy', "connect-src 'self' http://127.0.0.1:3000")
-    .render('login', {
-      title: 'Log into your account',
-    });
+  res.status(200).render('login', {
+    title: 'Log into your account',
+  });
 });
 
+exports.getSignupForm = catchAsync(async (req, res) => {
+  res.status(200).render('signup', {
+    title: 'Create your account',
+  });
+});
 exports.getAccount = (req, res) => {
   res
     .status(200)
