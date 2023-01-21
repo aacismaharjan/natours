@@ -7,8 +7,7 @@ const AppError = require('../utils/appError');
 exports.getOverview = catchAsync(async (req, res) => {
   // 1) Get tour data from collection
   const tours = await Tour.find().sort({ ratingsAverage: -1 });
-  const users = await User.find().sort({ createdAt: -1 }).limit(10);
-  console.log(users);
+  const users = await User.find().sort({ createdAt: -1 }).limit(8);
 
   // 2) Build template
 

@@ -45,11 +45,12 @@ block content
 
 
 
-        div.container.user-list
-            h2 Recently Logged in Users
+        if users 
+            div.container.user-list
+                h2 Recently Signed up Users
 
-            div
-                each user in users 
-                    div.img-container
-                        img.overview-box__img(src=`/img/users/${user.photo}`, alt=`${'default.jpg'}`)
-                        h2=user.name.split(' ')[0]
+                div
+                    each user in users 
+                        div.img-container
+                            img.overview-box__img(src=`/img/users/${user.photo}`, alt=`${'default.jpg'}`)
+                            h2=user.name.split(' ')[0]
