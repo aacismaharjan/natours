@@ -1,0 +1,9 @@
+extends base
+include _reviewCard
+
+block content
+  section.section-reviews.my-3
+    .reviews
+      each review in reviews
+        +reviewCard(review)
+

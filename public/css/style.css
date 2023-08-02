@@ -21,10 +21,35 @@
   box-sizing: inherit;
 }
 
+.hide {
+  display: none;
+}
+
+.card-wish-container {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+}
+
+.btn-remove-wishlist,
+.btn-add-wishlist {
+  border: 0px;
+  padding: 0px;
+  background: transparent;
+  font-size: 28px;
+  cursor: pointer;
+  color: #55c57a;
+}
+
 html {
   font-size: 62.5%;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
+}
+
+.my-3 {
+  margin-top: 3rem !important;
+  margin-bottom: 3rem !important;
 }
 
 body {
@@ -354,9 +379,8 @@ body {
   height: auto;
   padding-right: 0;
   padding-left: 0;
-  overflow:hidden;
+  overflow: hidden;
   position: relative;
-
 }
 
 .mobile-header .header__logo {
@@ -366,10 +390,11 @@ body {
 
 .mobile-header .nav-links {
   background: gray;
-  display:none;
+  display: none;
 }
 
-.mobile-header .nav-links a, .mobile-header .nav-icon a {
+.mobile-header .nav-links a,
+.mobile-header .nav-icon a {
   color: white;
   text-decoration: none;
   font-size: 16px;
@@ -377,14 +402,13 @@ body {
   display: block;
 }
 
-
 .mobile-header .nav-links a:hover,
 .mobile-header .nav-icon a:hover {
   color: black;
   background-color: #ddd;
 }
 
-.mobile-header .nav-icon  a{
+.mobile-header .nav-icon a {
   position: absolute;
   font-size: 18px !important;
   top: 1rem;
@@ -392,7 +416,7 @@ body {
   padding: 10px 16px;
 }
 
-.mobile-header .nav-icon a{
+.mobile-header .nav-icon a {
   display: block;
   font-size: 14px;
   background: black;
@@ -1143,6 +1167,7 @@ body {
 }
 
 .card {
+  position: relative;
   border-radius: 3px;
   overflow: hidden;
   -webkit-box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.1);
@@ -1260,25 +1285,25 @@ body {
   margin-right: auto;
 }
 
-div.user-list > h2{
+div.user-list > h2 {
   font-size: 20px;
-  margin-top: 24px; 
+  margin-top: 24px;
   margin-bottom: 16px;
 }
 
-div.user-list > div{
+div.user-list > div {
   display: flex;
-  flex-wrap: wrap; 
+  flex-wrap: wrap;
   gap: 20px 40px;
 }
 
 .user-list .img-container {
-  text-align: center; 
+  text-align: center;
   width: auto;
 }
 
 .user-list .img-container img {
-  width: 80px; 
+  width: 80px;
   height: 80px;
   margin-right: 0;
 }

@@ -3,6 +3,7 @@ import { login, logout, signup } from './login';
 import { displayMap } from './mapbox';
 import { bookTour } from './stripe';
 import { updateSettings } from './updateSettings';
+import { addWishlist, removeWishlist } from './alerts';
 
 // DOM ELEMENTS
 const mapBox = document.getElementById('map');
@@ -11,7 +12,34 @@ const signupForm = document.querySelector('.form--signup');
 const updateUserForm = document.querySelector('.form-user-data');
 const userPasswordForm = document.querySelector('.form-user-password');
 const logOutBtn = document.querySelectorAll('.nav__el--logout');
+
 const bookBtn = document.getElementById('book-tour');
+
+const cards = document.querySelectorAll('.tour-card');
+Array.from(cards).map((card) => {
+  const addBtn = card.querySelector('.btn-add-wishlist');
+  const removeBtn = card.querySelector('.btn-remove-wishlist');
+
+  if (addBtn) {
+    addBtn.addEventListener('click', async () => {
+      const tourId = JSON.parse(card.dataset.tour);
+      if (await addWishlist(tourId)) {
+        addBtn.classList.add('hide');
+        removeBtn.classList.remove('hide');
+      }
+    });
+  }
+
+  if (removeBtn) {
+    removeBtn.addEventListener('click', async () => {
+      const tourId = JSON.parse(card.dataset.tour);
+      if (await removeWishlist(tourId)) {
+        addBtn.classList.remove('hide');
+        removeBtn.classList.add('hide');
+      }
+    });
+  }
+});
 
 // DELEGATION
 if (mapBox) {
@@ -119,3 +147,12 @@ if (navBtn) {
     }
   });
 }
+
+// Global image error handler
+const recentProfileList = document.querySelectorAll('img');
+
+Array.from(recentProfileList).map((item) => {
+  item.addEventListener('error', (img) => {
+    img.target.src = '/img/favicon.png';
+  });
+});

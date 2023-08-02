@@ -3,19 +3,61 @@ const User = require('../models/userModel');
 const Booking = require('../models/bookingModel');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
+const Wishlist = require('../models/wishlistModel');
+const Review = require('../models/reviewModel');
 
 exports.getOverview = catchAsync(async (req, res) => {
-  // 1) Get tour data from collection
-  const tours = await Tour.find().sort({ ratingsAverage: -1 });
-  const users = await User.find().sort({ createdAt: -1 }).limit(8);
+  let filter = {};
+  let wishlist = [];
 
-  // 2) Build template
+  if (req.user) {
+    // Get the wishlists of the current user
+    wishlist = await Wishlist.find({ user: req.user.id });
+    wishlist = wishlist.map((wish) => wish.tour + '');
+  }
 
-  // 3) Render that template using tour data from step 1
+  let tours = await Tour.find();
+
+  // Map through the tours and check if each tour's ID exists in the wishlist array for the current user
+  tours = tours.map(async (tour) => {
+    const tempTour = tour.toObject();
+    const hasWishlisted = wishlist.includes(tempTour.id);
+
+    return { ...tempTour, wishlist: hasWishlisted };
+  });
+
+  tours = await Promise.all(tours);
+
+  const users = await User.find().sort({ createdAt: -1 }).limit(10);
+
+  // Build template and render it using tour data from above
   res.status(200).render('overview', {
     title: 'All Tours',
-    tours,
+    tours: tours,
     users,
+  });
+});
+
+exports.getWishlist = catchAsync(async (req, res) => {
+  let wishlist = await Wishlist.find({ user: req.user.id });
+
+  wishlist = wishlist.map(async (wish) => {
+    const result = await Tour.findById(wish.tour);
+    return { ...result.toObject(), wishlist: true };
+  });
+  wishlist = await Promise.all(wishlist);
+
+  res.status(200).render('overview', {
+    title: 'Wishlist',
+    tours: wishlist,
+  });
+});
+
+exports.getReviews = catchAsync(async (req, res) => {
+  let reviews = await Review.find({ user: req.user.id });
+
+  res.status(200).render('my-review', {
+    reviews,
   });
 });
 
